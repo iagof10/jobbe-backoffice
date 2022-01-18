@@ -12,6 +12,7 @@ namespace API.Data.Context
     {
         public DbSet<User> User { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
+        public DbSet<SubCategoria> SubCategoria { get; set; }
 
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
@@ -20,6 +21,7 @@ namespace API.Data.Context
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<User>(new UserMap().Configure);
             modelBuilder.Entity<Categoria>(new CategoriaMap().Configure);
+            modelBuilder.Entity<SubCategoria>(new SubCategoriaMap().Configure);
         }
     }
 }

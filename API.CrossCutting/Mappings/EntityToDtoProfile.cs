@@ -1,5 +1,6 @@
 ﻿using API.Domain.DTOs;
 using API.Domain.DTOs.Categoria;
+using API.Domain.DTOs.SubCategoria;
 using API.Domain.DTOs.User;
 using API.Domain.Entities;
 using AutoMapper;
@@ -15,6 +16,9 @@ namespace API.CrossCutting.Mappings
         {
             CreateMap<CategoriaDto, Categoria>().ReverseMap();
             CreateMap<CategoriaCreateInput, Categoria>().ReverseMap();
+
+            CreateMap<SubCategoriaDto, SubCategoria>().ReverseMap();
+            CreateMap<SubCategoriaCreateInput, SubCategoria>().ReverseMap();
 
             CreateMap<UserDtoInput, User>().ReverseMap();
             CreateMap<UserDtoOutput, User>().ReverseMap();

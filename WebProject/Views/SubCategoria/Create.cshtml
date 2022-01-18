@@ -6,12 +6,17 @@
             <div style="width:100%">
                 <div class="card">
                     <div class="card-header card-header-warning">
-                        <h4 class="card-title">Criação Projeto</h4>
-                        <p class="card-category">Crie um novo projeto.</p>
+                        <h4 class="card-title">Sub Categoria</h4>
+                        <p class="card-category">Crie uma nova Sub Categoria.</p>
                     </div>
                     <div class="card-body">
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class="control-label">Categoria</label>
+                                <input asp-for="CategoriaId" class="form-control" />
+                                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+                            </div>
                             <div class="form-group">
                                 <label class="control-label">Descrição</label>
                                 <input asp-for="Descricao" class="form-control" />

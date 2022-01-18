@@ -14,6 +14,7 @@ namespace API.CrossCutting.DependenciesConfigure
         public static void ConfigureDependenciesService(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient(typeof(ICategoriaService), typeof(CategoriaService));
+            serviceCollection.AddTransient(typeof(ISubCategoriaService), typeof(SubCategoriaService));
         }
     }
 }

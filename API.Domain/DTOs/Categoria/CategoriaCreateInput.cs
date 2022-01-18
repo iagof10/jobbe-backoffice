@@ -8,6 +8,7 @@ namespace API.Domain.DTOs.Categoria
 {
     public class CategoriaCreateInput
     {
+        public long CategoriaId { get; set; }
         public string Descricao { get; set; }
         public string ImagemUrl { get; set; }
     }

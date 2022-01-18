@@ -9,6 +9,7 @@ namespace API.Domain.DTOs.SubCategoria
 {
     public class SubCategoriaCreateInput
     {
+        public long CategoriaId { get; set; }
         public string Descricao { get; set; }
 
         public string ImagemUrl { get; set; }
