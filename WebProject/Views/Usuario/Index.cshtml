@@ -1,4 +1,4 @@
-﻿@model IEnumerable<API.Domain.DTOs.SubCategoria.SubCategoriaDto>
+﻿@model IEnumerable<API.Domain.DTOs.Usuario.UsuarioDto>
 
 <div class="row">
     <div style="width:100%">
@@ -25,10 +25,13 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        Categoria
+                                        Tipo Usuário
                                     </th>
                                     <th>
-                                        Descrição
+                                        Nome
+                                    </th>
+                                    <th>
+                                        E-mail
                                     </th>
                                     <th>
                                         Ações
@@ -40,10 +43,13 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.CategoriaId)
+                                            @Html.DisplayFor(modelItem => item.TipoUsuario)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Descricao)
+                                            @Html.DisplayFor(modelItem => item.Nome)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
                                         </td>
                                         <td class="td-actions text-right">
                                             <a asp-action="Details" asp-route-id="@item.Id" title="Ver" class="btn btn-white btn-link btn-sm">
