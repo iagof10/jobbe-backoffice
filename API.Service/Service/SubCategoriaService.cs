@@ -1,6 +1,5 @@
 ﻿using API.Domain.DTOs;
 using API.Domain.DTOs.Categoria;
-using API.Domain.DTOs.SubCategoria;
 using API.Domain.Entities;
 using API.Domain.Repository;
 using API.Domain.Service;
@@ -13,41 +12,41 @@ using System.Threading.Tasks;
 
 namespace API.Service.Service
 {
-    public class SubCategoriaService : ISubCategoriaService
+    public class CategoriaService : ICategoriaService
     {
-        private IBaseRepository<SubCategoria> _baseRepository;
-        private ISubCategoriaRepository _subCategoriaRepository;
+        private IBaseRepository<Categoria> _baseRepository;
+        private ICategoriaRepository _categoriaRepository;
         private readonly IMapper _mapper;
 
-        public SubCategoriaService(IBaseRepository<SubCategoria> baseRepository, ISubCategoriaRepository subCategoriaRepository, IMapper mapper)
+        public CategoriaService(IBaseRepository<Categoria> baseRepository, ICategoriaRepository categoriaRepository, IMapper mapper)
         {
             _baseRepository = baseRepository;
-            _subCategoriaRepository = subCategoriaRepository;
+            _categoriaRepository = categoriaRepository;
             _mapper = mapper;
         }
 
-        public async Task<bool> ExistAsync(long idSubCategoria)
+        public async Task<bool> ExistAsync(long idCategoria)
         {
-            return await _subCategoriaRepository.ExistAsync(idSubCategoria);
+            return await _categoriaRepository.ExistAsync(idCategoria);
         }
 
-        public async Task<ResponseBase<IEnumerable<SubCategoriaDto>>> GetListAsync()
+        public async Task<ResponseBase<IEnumerable<CategoriaDto>>> GetListAsync()
         {
-            ResponseBase<IEnumerable<SubCategoriaDto>> result = new ResponseBase<IEnumerable<SubCategoriaDto>>();
+            ResponseBase<IEnumerable<CategoriaDto>> result = new ResponseBase<IEnumerable<CategoriaDto>>();
 
             try
             {
-                var subCategorias = await _subCategoriaRepository.SelectListAsync();
+                var categorias = await _categoriaRepository.SelectListAsync();
 
-                if (subCategorias.Sucess)
+                if (categorias.Sucess)
                 {
-                    result.Data = _mapper.Map<IEnumerable<SubCategoriaDto>>(subCategorias.Data);
+                    result.Data = _mapper.Map<IEnumerable<CategoriaDto>>(categorias.Data);
                 }
                 else
                 {
                     result.Sucess = false;
                     result.Data = null;
-                    result.ErrorMessage = subCategorias.ErrorMessage;
+                    result.ErrorMessage = categorias.ErrorMessage;
                 }
 
             }
@@ -61,19 +60,19 @@ namespace API.Service.Service
             return result;
         }
 
-        public async Task<ResponseBase<SubCategoriaDto>> Post(SubCategoriaCreateInput model)
+        public async Task<ResponseBase<CategoriaDto>> Post(CategoriaCreateInput model)
         {
-            ResponseBase<SubCategoriaDto> result = new ResponseBase<SubCategoriaDto>();
+            ResponseBase<CategoriaDto> result = new ResponseBase<CategoriaDto>();
 
             try
             {
-                var entity = _mapper.Map<SubCategoria>(model);
+                var entity = _mapper.Map<Categoria>(model);
 
                 var resultInsert = await _baseRepository.InsertAsync(entity);
 
                 if (resultInsert.Sucess)
                 {
-                    result.Data = _mapper.Map<SubCategoriaDto>(resultInsert.Data);
+                    result.Data = _mapper.Map<CategoriaDto>(resultInsert.Data);
                 }
                 else
                 {
