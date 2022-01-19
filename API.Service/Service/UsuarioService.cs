@@ -15,11 +15,13 @@ namespace API.Service.Service
 {
     public class UsuarioService : IUsuarioService
     {
+        private IBaseRepository<Usuario> _baseRepository;
         private IUsuarioRepository _usuarioRepository;
         private readonly IMapper _mapper;
 
         public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper)
         {
+            _baseRepository = baseRepository;
             _usuarioRepository = usuarioRepository;
             _mapper = mapper;
         }
