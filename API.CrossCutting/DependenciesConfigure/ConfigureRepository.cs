@@ -17,6 +17,7 @@ namespace API.CrossCutting.DependenciesConfigure
             serviceCollection.AddScoped(typeof(ICategoriaRepository), typeof(CategoriaRepository));
             serviceCollection.AddScoped(typeof(ISubCategoriaRepository), typeof(SubCategoriaRepository));
             serviceCollection.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioRepository));
+            serviceCollection.AddScoped(typeof(ITelefoneUsuarioRepository), typeof(TelefoneUsuarioRepository));
             serviceCollection.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
         }
     }

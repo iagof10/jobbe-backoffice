@@ -3,6 +3,7 @@ using API.Domain.DTOs.Categoria;
 using API.Domain.DTOs.SubCategoria;
 using API.Domain.DTOs.User;
 using API.Domain.DTOs.Usuario;
+using API.Domain.DTOs.TelefoneUsuario;
 using API.Domain.Entities;
 using AutoMapper;
 using System;
@@ -25,6 +26,8 @@ namespace API.CrossCutting.Mappings
             CreateMap<UserDtoOutput, User>().ReverseMap();
 
             CreateMap<UsuarioDto, Usuario>().ReverseMap();
+
+            CreateMap<TelefoneUsuarioDto, TelefoneUsuario>().ReverseMap();
 
         }
     }

@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DTOs\Categoria - Cópia\**" />
+    <EmbeddedResource Remove="DTOs\Categoria - Cópia\**" />
+    <None Remove="DTOs\Categoria - Cópia\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Infra\" />
   </ItemGroup>
 
