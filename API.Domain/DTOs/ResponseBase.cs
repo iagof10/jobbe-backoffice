@@ -11,11 +11,9 @@ namespace API.Domain.DTOs
         public T Data { get; set; }
         public bool Sucess { get; set; }
         public string ErrorMessage { get; set; }
-
         public ResponseBase()
         {
             Sucess = true;
         }
-
     }
 }

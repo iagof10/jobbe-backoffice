@@ -39,40 +39,5 @@ namespace WebProject.Controllers
             }
         }
 
-        public IActionResult Create()
-        {
-            if (HttpContext?.Session.GetString("UserId") == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Descricao,ImagemUrl")] UsuarioCreateInput model)
-        {
-            if (HttpContext?.Session.GetString("UserId") == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var result = await _service.Post(model);
-
-            if (result.Sucess)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            else
-            {
-                return View(model);
-            }
-        }
     }
 }
