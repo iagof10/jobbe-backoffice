@@ -1,5 +1,5 @@
 ﻿using API.Domain.DTOs;
-using API.Domain.DTOs.Usuario;
+using API.Domain.DTOs.Categoria;
 using API.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,12 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Domain.Service
+namespace API.Domain.Repository
 {
-    public interface IUsuarioService
+    public interface IUsuarioRepository
     {
         Task<bool> ExistAsync(long idUsuario);
-        Task<ResponseBase<IEnumerable<UsuarioDto>>> GetListAsync();
-
+        Task<ResponseBase<IEnumerable<Usuario>>> SelectListAsync();
     }
 }
