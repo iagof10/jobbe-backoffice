@@ -17,6 +17,7 @@ namespace API.CrossCutting.DependenciesConfigure
             serviceCollection.AddTransient(typeof(ISubCategoriaService), typeof(SubCategoriaService));
             serviceCollection.AddTransient(typeof(IUsuarioService), typeof(UsuarioService));
             serviceCollection.AddTransient(typeof(ITelefoneUsuarioService), typeof(TelefoneUsuarioService));
+            serviceCollection.AddTransient(typeof(ITipoChamadoService), typeof(TipoChamadoService));
         }
     }
 }
