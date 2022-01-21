@@ -18,7 +18,7 @@ namespace API.Data.Context
         public DbSet<TipoChamado> TipoChamado { get; set; }
         public DbSet<Chamado> Chamado { get; set; }
         public DbSet<ChamadoCriticidade> ChamadoCriticidade { get; set; }
-
+        public DbSet<ChamadoStatus> ChamadoStatus { get; set; }
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -32,6 +32,7 @@ namespace API.Data.Context
             modelBuilder.Entity<TipoChamado>(new TipoChamadoMap().Configure);
             modelBuilder.Entity<Chamado>(new ChamadoMap().Configure);
             modelBuilder.Entity<ChamadoCriticidade>(new ChamadoCriticidadeMap().Configure);
+            modelBuilder.Entity<ChamadoStatus>(new ChamadoStatusMap().Configure);
         }
     }
 }

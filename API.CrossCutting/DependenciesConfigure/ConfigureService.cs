@@ -20,6 +20,7 @@ namespace API.CrossCutting.DependenciesConfigure
             serviceCollection.AddTransient(typeof(ITipoChamadoService), typeof(TipoChamadoService));
             serviceCollection.AddTransient(typeof(IChamadoService), typeof(ChamadoService));
             serviceCollection.AddTransient(typeof(IChamadoCriticidadeService), typeof(ChamadoCriticidadeService));
+            serviceCollection.AddTransient(typeof(IChamadoStatusService), typeof(ChamadoStatusService));
         }
     }
 }
