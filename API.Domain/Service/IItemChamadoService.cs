@@ -1,6 +1,7 @@
 ﻿using API.Domain.DTOs;
 using API.Domain.DTOs.Categoria;
 using API.Domain.DTOs.ContatoPrestador;
+using API.Domain.DTOs.ItemChamado;
 using API.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,10 @@ using System.Threading.Tasks;
 
 namespace API.Domain.Service
 {
-    public interface ICategoriaService
+    public interface IItemChamadoService
     {
-        Task<bool> ExistAsync(long idCategoria);
-        Task<ResponseBase<IEnumerable<CategoriaDto>>> GetListAsync();
-        Task<ResponseBase<CategoriaDto>> Post(CategoriaCreateInput model);
+        Task<bool> ExistAsync(long idItemChamado);
+        Task<ResponseBase<IEnumerable<ItemChamadoDto>>> GetListAsync();
     }
    
 }

@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace API.Domain.Repository
 {
-    public interface IContatoPrestadorRepository
+    public interface IComentarioPerfilRepository
     {
-        Task<bool> ExistAsync(long idContatoPrestador);
-        Task<ResponseBase<IEnumerable<ContatoPrestador>>> SelectListAsync();
+        Task<bool> ExistAsync(long idComentarioPerfil);
+        Task<ResponseBase<IEnumerable<ComentarioPerfil>>> SelectListAsync();
     }
 }

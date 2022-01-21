@@ -22,6 +22,10 @@ namespace API.CrossCutting.DependenciesConfigure
             serviceCollection.AddScoped(typeof(IChamadoRepository), typeof(ChamadoRepository));
             serviceCollection.AddScoped(typeof(IChamadoCriticidadeRepository), typeof(ChamadoCriticidadeRepository));
             serviceCollection.AddScoped(typeof(IChamadoStatusRepository), typeof(ChamadoStatusRepository));
+            serviceCollection.AddScoped(typeof(IComentarioPerfilRepository), typeof(ComentarioPerfilRepository));
+            serviceCollection.AddScoped(typeof(IContatoPrestadorRepository), typeof(ContatoPrestadorRepository));
+            serviceCollection.AddScoped(typeof(IItemChamadoRepository), typeof(ItemChamadoRepository));
+            serviceCollection.AddScoped(typeof(ISubCategoriaPrestadorRepository), typeof(SubCategoriaPrestadorRepository));
             serviceCollection.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
         }
     }

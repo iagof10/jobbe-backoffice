@@ -1,5 +1,6 @@
 ﻿using API.Domain.DTOs;
 using API.Domain.DTOs.Categoria;
+using API.Domain.DTOs.ContatoPrestador;
 using API.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -7,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Domain.Repository
+namespace API.Domain.Service
 {
-    public interface IContatoPrestadorRepository
+    public interface IContatoPrestadorService
     {
         Task<bool> ExistAsync(long idContatoPrestador);
-        Task<ResponseBase<IEnumerable<ContatoPrestador>>> SelectListAsync();
+        Task<ResponseBase<IEnumerable<ContatoPrestadorDto>>> GetListAsync();
     }
 }

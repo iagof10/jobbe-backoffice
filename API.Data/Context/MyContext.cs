@@ -19,6 +19,12 @@ namespace API.Data.Context
         public DbSet<Chamado> Chamado { get; set; }
         public DbSet<ChamadoCriticidade> ChamadoCriticidade { get; set; }
         public DbSet<ChamadoStatus> ChamadoStatus { get; set; }
+        public DbSet<ComentarioPerfil > ComentarioPerfil { get; set; }
+        public DbSet<ContatoPrestador > ContatoPrestador { get; set; }
+        public DbSet<ItemChamado > ItemChamado { get; set; }
+
+        public DbSet<SubCategoriaPrestador> SubCategoriaPrestador { get; set; }
+
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +39,10 @@ namespace API.Data.Context
             modelBuilder.Entity<Chamado>(new ChamadoMap().Configure);
             modelBuilder.Entity<ChamadoCriticidade>(new ChamadoCriticidadeMap().Configure);
             modelBuilder.Entity<ChamadoStatus>(new ChamadoStatusMap().Configure);
+            modelBuilder.Entity<ComentarioPerfil>(new ComentarioPerfilMap().Configure);
+            modelBuilder.Entity<ContatoPrestador>(new ContatoPrestadorMap().Configure);
+            modelBuilder.Entity<ItemChamado>(new ItemChamadoMap().Configure);
+            modelBuilder.Entity<SubCategoriaPrestador>(new SubCategoriaPrestadorMap().Configure);
         }
     }
 }
