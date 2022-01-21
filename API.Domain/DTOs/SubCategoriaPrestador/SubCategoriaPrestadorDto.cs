@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace API.Domain.Entities
 {
-    public class SubCategoriaPrestadorDto : BaseEntity
+    public class SubCategoriaPrestadorDto
     {
         public long Id { get; set; }
         public long SubCategoriaId { get; set; }
