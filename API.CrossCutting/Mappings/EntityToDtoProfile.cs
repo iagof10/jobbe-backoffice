@@ -42,12 +42,15 @@ namespace API.CrossCutting.Mappings
             CreateMap<ChamadoCriticidadeDto, ChamadoCriticidade>().ReverseMap();
 
             CreateMap<ChamadoStatusDto, ChamadoStatus>().ReverseMap();
+            CreateMap<ComentarioPerfilDto, ComentarioPerfil>().ReverseMap();
 
             CreateMap<ComentarioPerfilDto, ComentarioPerfil>().ReverseMap();
 
             CreateMap<ContatoPrestadorDto, ContatoPrestador>().ReverseMap();
 
-            CreateMap<ItemChamadoDto, ItemChamado>().ReverseMap();
+            CreateMap<ItemChamadoDto, ItemChamado>().ReverseMap()
+
+            CreateMap<SubCategoriaPrestadorDto, SubCategoriaPrestador>().ReverseMap();
            
 
         }
