@@ -8,6 +8,7 @@ using API.Domain.DTOs.TipoChamado;
 using API.Domain.DTOs.Chamado;
 using API.Domain.DTOs.ChamadoCriticidade;
 using API.Domain.DTOs.ChamadoStatus;
+using API.Domain.DTOs.ComentarioPerfil;
 using API.Domain.Entities;
 using AutoMapper;
 using System;
@@ -37,6 +38,7 @@ namespace API.CrossCutting.Mappings
             CreateMap<ChamadoDto, Chamado>().ReverseMap();
             CreateMap<ChamadoCriticidadeDto, ChamadoCriticidade>().ReverseMap();
             CreateMap<ChamadoStatusDto, ChamadoStatus>().ReverseMap();
+            CreateMap<ComentarioPerfilDto, ComentarioPerfil>().ReverseMap();
 
         }
     }
