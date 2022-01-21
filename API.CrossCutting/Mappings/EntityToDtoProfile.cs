@@ -5,6 +5,7 @@ using API.Domain.DTOs.User;
 using API.Domain.DTOs.Usuario;
 using API.Domain.DTOs.TelefoneUsuario;
 using API.Domain.DTOs.TipoChamado;
+using API.Domain.DTOs.Chamado;
 using API.Domain.Entities;
 using AutoMapper;
 using System;
@@ -30,6 +31,8 @@ namespace API.CrossCutting.Mappings
 
             CreateMap<TelefoneUsuarioDto, TelefoneUsuario>().ReverseMap();
             CreateMap<TipoChamadoDto, TipoChamado>().ReverseMap();
+
+            CreateMap<ChamadoDto, Chamado>().ReverseMap();
 
         }
     }

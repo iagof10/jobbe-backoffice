@@ -1,5 +1,5 @@
 ﻿using API.Domain.DTOs;
-using API.Domain.DTOs.Categoria;
+using API.Domain.DTOs.Chamado;
 using API.Domain.Entities;
 using API.Domain.Repository;
 using API.Domain.Service;
@@ -12,41 +12,41 @@ using System.Threading.Tasks;
 
 namespace API.Service.Service
 {
-    public class CategoriaService : ICategoriaService
+    public class ChamadoService : IChamadoService
     {
-        private IBaseRepository<Categoria> _baseRepository;
-        private ICategoriaRepository _categoriaRepository;
+        private IBaseRepository<Chamado> _baseRepository;
+        private IChamadoRepository _chamadoRepository;
         private readonly IMapper _mapper;
 
-        public CategoriaService(IBaseRepository<Categoria> baseRepository, ICategoriaRepository categoriaRepository, IMapper mapper)
+        public ChamadoService(IBaseRepository<Chamado> baseRepository, IChamadoRepository chamadoRepository, IMapper mapper)
         {
             _baseRepository = baseRepository;
-            _categoriaRepository = categoriaRepository;
+            _chamadoRepository = chamadoRepository;
             _mapper = mapper;
         }
 
-        public async Task<bool> ExistAsync(long idCategoria)
+        public async Task<bool> ExistAsync(long idChamado)
         {
-            return await _categoriaRepository.ExistAsync(idCategoria);
+            return await _chamadoRepository.ExistAsync(idChamado);
         }
 
-        public async Task<ResponseBase<IEnumerable<CategoriaDto>>> GetListAsync()
+        public async Task<ResponseBase<IEnumerable<ChamadoDto>>> GetListAsync()
         {
-            ResponseBase<IEnumerable<CategoriaDto>> result = new ResponseBase<IEnumerable<CategoriaDto>>();
+            ResponseBase<IEnumerable<ChamadoDto>> result = new ResponseBase<IEnumerable<ChamadoDto>>();
 
             try
             {
-                var categorias = await _categoriaRepository.SelectListAsync();
+                var chamados = await _chamadoRepository.SelectListAsync();
 
-                if (categorias.Sucess)
+                if (chamados.Sucess)
                 {
-                    result.Data = _mapper.Map<IEnumerable<CategoriaDto>>(categorias.Data);
+                    result.Data = _mapper.Map<IEnumerable<ChamadoDto>>(chamados.Data);
                 }
                 else
                 {
                     result.Sucess = false;
                     result.Data = null;
-                    result.ErrorMessage = categorias.ErrorMessage;
+                    result.ErrorMessage = chamados.ErrorMessage;
                 }
 
             }
@@ -60,19 +60,19 @@ namespace API.Service.Service
             return result;
         }
 
-        public async Task<ResponseBase<CategoriaDto>> Post(CategoriaCreateInput model)
+        public async Task<ResponseBase<ChamadoDto>> Post(ChamadoCreateInput model)
         {
-            ResponseBase<CategoriaDto> result = new ResponseBase<CategoriaDto>();
+            ResponseBase<ChamadoDto> result = new ResponseBase<ChamadoDto>();
 
             try
             {
-                var entity = _mapper.Map<Categoria>(model);
+                var entity = _mapper.Map<Chamado>(model);
 
                 var resultInsert = await _baseRepository.InsertAsync(entity);
 
                 if (resultInsert.Sucess)
                 {
-                    result.Data = _mapper.Map<CategoriaDto>(resultInsert.Data);
+                    result.Data = _mapper.Map<ChamadoDto>(resultInsert.Data);
                 }
                 else
                 {

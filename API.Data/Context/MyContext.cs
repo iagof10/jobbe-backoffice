@@ -16,6 +16,7 @@ namespace API.Data.Context
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<TelefoneUsuario> TelefoneUsuario { get; set; }
         public DbSet<TipoChamado> TipoChamado { get; set; }
+        public DbSet<Chamado> Chamado { get; set; }
 
         public MyContext(DbContextOptions<MyContext> options) : base(options) { }
 
@@ -28,6 +29,7 @@ namespace API.Data.Context
             modelBuilder.Entity<Usuario>(new UsuarioMap().Configure);
             modelBuilder.Entity<TelefoneUsuario>(new TelefoneUsuarioMap().Configure);
             modelBuilder.Entity<TipoChamado>(new TipoChamadoMap().Configure);
+            modelBuilder.Entity<Chamado>(new ChamadoMap().Configure);
         }
     }
 }

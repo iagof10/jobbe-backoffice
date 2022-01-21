@@ -19,6 +19,7 @@ namespace API.CrossCutting.DependenciesConfigure
             serviceCollection.AddScoped(typeof(IUsuarioRepository), typeof(UsuarioRepository));
             serviceCollection.AddScoped(typeof(ITelefoneUsuarioRepository), typeof(TelefoneUsuarioRepository));
             serviceCollection.AddScoped(typeof(ITipoChamadoRepository), typeof(TipoChamadoRepository));
+            serviceCollection.AddScoped(typeof(IChamadoRepository), typeof(ChamadoRepository));
             serviceCollection.AddDbContext<MyContext>(x => x.UseSqlServer(connectionString));
         }
     }
