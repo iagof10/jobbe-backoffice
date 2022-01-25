@@ -14,10 +14,12 @@ namespace WebProject.Controllers
     public class SubCategoriaController : Controller
     {
         private ISubCategoriaService _service;
+        private ICategoriaService _serviceCategoria;
 
-        public SubCategoriaController(ISubCategoriaService service)
+        public SubCategoriaController(ISubCategoriaService service, ICategoriaService serviceCategoria)
         {
             _service = service;
+            _serviceCategoria = serviceCategoria;
         }
 
         // GET: Projects
@@ -39,12 +41,15 @@ namespace WebProject.Controllers
             }
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             if (HttpContext?.Session.GetString("UserId") == null)
             {
                 return RedirectToAction("Login", "Home");
             }
+
+            var categoriaService = await _serviceCategoria.GetListAsync();
+            ViewBag.Categorias = categoriaService.Data;
 
             return View();
         }

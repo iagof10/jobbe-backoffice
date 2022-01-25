@@ -25,6 +25,7 @@ namespace API.CrossCutting.Mappings
         {
             CreateMap<CategoriaDto, Categoria>().ReverseMap();
             CreateMap<CategoriaCreateInput, Categoria>().ReverseMap();
+            CreateMap<CategoriaUpdateInput, Categoria>().ReverseMap();
 
             CreateMap<SubCategoriaDto, SubCategoria>().ReverseMap();
             CreateMap<SubCategoriaCreateInput, SubCategoria>().ReverseMap();
@@ -48,7 +49,7 @@ namespace API.CrossCutting.Mappings
 
             CreateMap<ContatoPrestadorDto, ContatoPrestador>().ReverseMap();
 
-            CreateMap<ItemChamadoDto, ItemChamado>().ReverseMap()
+            CreateMap<ItemChamadoDto, ItemChamado>().ReverseMap();
 
             CreateMap<SubCategoriaPrestadorDto, SubCategoriaPrestador>().ReverseMap();
            

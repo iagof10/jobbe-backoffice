@@ -17,12 +17,14 @@ namespace API.Service.Service
     {
         private IBaseRepository<SubCategoria> _baseRepository;
         private ISubCategoriaRepository _subCategoriaRepository;
+        private ICategoriaRepository _categoriaRepository;
         private readonly IMapper _mapper;
 
-        public SubCategoriaService(IBaseRepository<SubCategoria> baseRepository, ISubCategoriaRepository subCategoriaRepository, IMapper mapper)
+        public SubCategoriaService(IBaseRepository<SubCategoria> baseRepository, ISubCategoriaRepository subCategoriaRepository, ICategoriaRepository categoriaRepository, IMapper mapper)
         {
             _baseRepository = baseRepository;
             _subCategoriaRepository = subCategoriaRepository;
+            _categoriaRepository = categoriaRepository;
             _mapper = mapper;
         }
 
@@ -41,7 +43,15 @@ namespace API.Service.Service
 
                 if (subCategorias.Sucess)
                 {
+                    var categorias = await _categoriaRepository.SelectListAsync();
+                    var categoriasDto = _mapper.Map<IEnumerable<CategoriaDto>>(categorias.Data);
+
                     result.Data = _mapper.Map<IEnumerable<SubCategoriaDto>>(subCategorias.Data);
+
+                    foreach (var item in result.Data)
+                    {
+                        item.Categoria = categoriasDto.Where(x => x.Id == item.CategoriaId).FirstOrDefault();
+                    }
                 }
                 else
                 {

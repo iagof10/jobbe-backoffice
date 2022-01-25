@@ -30,6 +30,36 @@ namespace API.Service.Service
             return await _categoriaRepository.ExistAsync(idCategoria);
         }
 
+        public async Task<ResponseBase<CategoriaDto>> GetAsync(long id)
+        {
+            ResponseBase<CategoriaDto> result = new ResponseBase<CategoriaDto>();
+
+            try
+            {
+                var categoria = await _baseRepository.SelectAsync(id);
+
+                if (categoria.Sucess)
+                {
+                    result.Data = _mapper.Map<CategoriaDto>(categoria.Data);
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = null;
+                    result.ErrorMessage = categoria.ErrorMessage;
+                }
+
+            }
+            catch (Exception e)
+            {
+                result.Sucess = false;
+                result.Data = null;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
+
         public async Task<ResponseBase<IEnumerable<CategoriaDto>>> GetListAsync()
         {
             ResponseBase<IEnumerable<CategoriaDto>> result = new ResponseBase<IEnumerable<CategoriaDto>>();
@@ -86,6 +116,68 @@ namespace API.Service.Service
             {
                 result.Sucess = false;
                 result.Data = null;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
+        public async Task<ResponseBase<CategoriaDto>> Put(CategoriaUpdateInput model)
+        {
+            ResponseBase<CategoriaDto> result = new ResponseBase<CategoriaDto>();
+
+            try
+            {
+                var entity = _mapper.Map<Categoria>(model);
+
+                var resultUpdate = await _baseRepository.UpdateAsync(entity);
+
+                if (resultUpdate.Sucess)
+                {
+                    result.Data = _mapper.Map<CategoriaDto>(resultUpdate.Data);
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = null;
+                    result.ErrorMessage = resultUpdate.ErrorMessage;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Sucess = false;
+                result.Data = null;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
+        public async Task<ResponseBase<bool>> Delete(long id)
+        {
+            ResponseBase<bool> result = new ResponseBase<bool>();
+
+            try
+            {
+                var resultDelete = await _baseRepository.DeleteAsync(id);
+
+                if (resultDelete)
+                {
+                    result.Data = resultDelete;
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = false;
+                    result.ErrorMessage = "Erro ao deletar.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Sucess = false;
+                result.Data = false;
                 result.ErrorMessage = ex.Message;
             }
 
