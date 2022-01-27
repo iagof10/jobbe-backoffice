@@ -54,6 +54,48 @@ namespace WebProject.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Edit(long id)
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            var subcategoria = await _service.GetAsync(id);
+            if (subcategoria?.Data == null)
+            {
+                return NotFound();
+            }
+
+            var categoriaService = await _serviceCategoria.GetListAsync();
+            ViewBag.Categorias = categoriaService.Data;
+
+            return View(subcategoria.Data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(long id, [Bind("Id,CategoriaId,Descricao,ImagemUrl")] SubCategoriaUpdateInput model)
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _service.Put(model);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CategoriaId,Descricao,ImagemUrl")] SubCategoriaCreateInput model)

@@ -71,6 +71,67 @@ namespace API.Service.Service
             return result;
         }
 
+        public async Task<ResponseBase<SubCategoriaDto>> GetAsync(long id)
+        {
+            ResponseBase<SubCategoriaDto> result = new ResponseBase<SubCategoriaDto>();
+
+            try
+            {
+                var subcategoria = await _baseRepository.SelectAsync(id);
+
+                if (subcategoria.Sucess)
+                {
+                    result.Data = _mapper.Map<SubCategoriaDto>(subcategoria.Data);
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = null;
+                    result.ErrorMessage = subcategoria.ErrorMessage;
+                }
+
+            }
+            catch (Exception e)
+            {
+                result.Sucess = false;
+                result.Data = null;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
+
+        public async Task<ResponseBase<SubCategoriaDto>> Put(SubCategoriaUpdateInput model)
+        {
+            ResponseBase<SubCategoriaDto> result = new ResponseBase<SubCategoriaDto>();
+
+            try
+            {
+                var entity = _mapper.Map<SubCategoria>(model);
+
+                var resultUpdate = await _baseRepository.UpdateAsync(entity);
+
+                if (resultUpdate.Sucess)
+                {
+                    result.Data = _mapper.Map<SubCategoriaDto>(resultUpdate.Data);
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = null;
+                    result.ErrorMessage = resultUpdate.ErrorMessage;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Sucess = false;
+                result.Data = null;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
         public async Task<ResponseBase<SubCategoriaDto>> Post(SubCategoriaCreateInput model)
         {
             ResponseBase<SubCategoriaDto> result = new ResponseBase<SubCategoriaDto>();

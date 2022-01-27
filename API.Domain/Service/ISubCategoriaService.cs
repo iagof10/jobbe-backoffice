@@ -14,6 +14,8 @@ namespace API.Domain.Service
     {
         Task<bool> ExistAsync(long idSubCategoria);
         Task<ResponseBase<IEnumerable<SubCategoriaDto>>> GetListAsync();
+        Task<ResponseBase<SubCategoriaDto>> GetAsync(long id);
+        Task<ResponseBase<SubCategoriaDto>> Put(SubCategoriaUpdateInput model);
         Task<ResponseBase<SubCategoriaDto>> Post(SubCategoriaCreateInput model);
     }
 }

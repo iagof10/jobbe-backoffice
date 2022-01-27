@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Domain.DTOs.Categoria;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,7 @@ namespace API.Domain.Entities
         public string Descricao { get; set; }
         public long CategoriaId { get; set; }
         public string ImagemUrl { get; set; }
+
+        public virtual CategoriaDto Categoria { get; set; }
     }
 }
