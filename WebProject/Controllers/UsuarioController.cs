@@ -39,5 +39,81 @@ namespace WebProject.Controllers
             }
         }
 
+        public IActionResult Create()
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Nome,Email,Apelido,TipoUsuario,Ativo, Validado,IdFotoPerfil,NomeFotoPerfil,Senha,ChaveUsuario")] UsuarioCreateInput model)
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await _service.Post(model);
+
+            if (result.Sucess)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return View(model);
+            }
+        }
+
+        public async Task<IActionResult> Edit(long id)
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            var usuario = await _service.GetAsync(id);
+            if (usuario?.Data == null)
+            {
+                return NotFound();
+            }
+
+            return View(usuario.Data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Nome, Email, Apelido, TipoUsuario, Ativo, Validado, IdFotoPerfil, NomeFotoPerfil, Senha, ChaveUsuario")] UsuarioUpdateInput model)
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _service.Put(model);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
+
     }
 }

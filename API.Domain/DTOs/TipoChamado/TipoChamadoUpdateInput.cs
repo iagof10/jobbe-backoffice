@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Domain.DTOs.TipoChamado
+namespace API.Domain.DTOs.Categoria
 {
-    public class TipoChamadoCreateInput
+    public class TipoChamadoUpdateInput
     {
+        public long Id { get; set; }
         public string Descricao { get; set; }
     }
 }

@@ -13,6 +13,8 @@ namespace API.Domain.Service
     {
         Task<bool> ExistAsync(long idUsuario);
         Task<ResponseBase<IEnumerable<UsuarioDto>>> GetListAsync();
-
+        Task<ResponseBase<UsuarioDto>> GetAsync(long id);
+        Task<ResponseBase<UsuarioDto>> Post(UsuarioCreateInput model);
+        Task<ResponseBase<UsuarioDto>> Put(UsuarioUpdateInput model);
     }
 }
