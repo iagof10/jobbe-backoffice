@@ -163,5 +163,34 @@ namespace API.Service.Service
 
             return result;
         }
+        public async Task<ResponseBase<bool>> Delete(long id)
+        {
+            ResponseBase<bool> result = new ResponseBase<bool>();
+
+            try
+            {
+                var resultDelete = await _baseRepository.DeleteAsync(id);
+
+                if (resultDelete)
+                {
+                    result.Data = resultDelete;
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = false;
+                    result.ErrorMessage = "Erro ao deletar.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Sucess = false;
+                result.Data = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
     }
 }

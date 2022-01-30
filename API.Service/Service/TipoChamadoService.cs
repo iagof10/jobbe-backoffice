@@ -91,5 +91,35 @@ namespace API.Service.Service
 
             return result;
         }
+
+        public async Task<ResponseBase<TipoChamadoDto>> GetAsync(long id)
+        {
+            ResponseBase<TipoChamadoDto> result = new ResponseBase<TipoChamadoDto>();
+
+            try
+            {
+                var categoria = await _baseRepository.SelectAsync(id);
+
+                if (categoria.Sucess)
+                {
+                    result.Data = _mapper.Map<TipoChamadoDto>(categoria.Data);
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = null;
+                    result.ErrorMessage = categoria.ErrorMessage;
+                }
+
+            }
+            catch (Exception e)
+            {
+                result.Sucess = false;
+                result.Data = null;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
     }
 }

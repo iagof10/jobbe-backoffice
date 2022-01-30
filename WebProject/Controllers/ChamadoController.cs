@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Domain.DTOs.SubCategoria;
+using API.Domain.DTOs.Chamado;
 using API.Domain.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,17 +11,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebProject.Controllers
 {
-    public class SubCategoriaController : Controller
+    public class ChamadoController : Controller
     {
-        private ISubCategoriaService _service;
-        private ICategoriaService _serviceCategoria;
-
-        public SubCategoriaController(ISubCategoriaService service, ICategoriaService serviceCategoria)
+        private IChamadoService _service;
+        private ITipoChamadoService _serviceTipoChamado;
+        private IChamadoCriticidadeService _servicoChamadoCriticidade;
+        private IChamadoStatusService _servicoStatus;
+        public ChamadoController(IChamadoService service, ITipoChamadoService serviceTipoChamado, IChamadoCriticidadeService servicoChamadoCriticidade, IChamadoStatusService servicoStatus)
         {
             _service = service;
-            _serviceCategoria = serviceCategoria;
+            _serviceTipoChamado = serviceTipoChamado;
+            _servicoChamadoCriticidade = servicoChamadoCriticidade;
+            _servicoStatus = servicoStatus;
         }
-
         // GET: Projects
         public async Task<IActionResult> Index()
         {
@@ -37,10 +39,9 @@ namespace WebProject.Controllers
             }
             else
             {
-                return View(new List<SubCategoriaDto>());
+                return View(new List<ChamadoDto>());
             }
         }
-
         public async Task<IActionResult> Create()
         {
             if (HttpContext?.Session.GetString("UserId") == null)
@@ -48,57 +49,21 @@ namespace WebProject.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var categoriaService = await _serviceCategoria.GetListAsync();
-            ViewBag.Categorias = categoriaService.Data;
+            var tipoChamadoService = await _serviceTipoChamado.GetListAsync();
+            ViewBag.TipoChamados = tipoChamadoService.Data;
+
+            var chamadoCriticidadeService = await _servicoChamadoCriticidade.GetListAsync();
+            ViewBag.ChamadoCriticidades = chamadoCriticidadeService.Data;
+
+            var chamadoStatusService = await _servicoStatus.GetListAsync();
+            ViewBag.ChamadoStatus = chamadoStatusService.Data;
 
             return View();
         }
 
-        public async Task<IActionResult> Edit(long id)
-        {
-            if (HttpContext?.Session.GetString("UserId") == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-
-            var subcategoria = await _service.GetAsync(id);
-            if (subcategoria?.Data == null)
-            {
-                return NotFound();
-            }
-
-            var categoriaService = await _serviceCategoria.GetListAsync();
-            ViewBag.Categorias = categoriaService.Data;
-
-            return View(subcategoria.Data);
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,CategoriaId,Descricao,ImagemUrl")] SubCategoriaUpdateInput model)
-        {
-            if (HttpContext?.Session.GetString("UserId") == null)
-            {
-                return RedirectToAction("Login", "Home");
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    await _service.Put(model);
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    return NotFound();
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(model);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoriaId,Descricao,ImagemUrl")] SubCategoriaCreateInput model)
+        public async Task<IActionResult> Create([Bind("IdTipoChamado,DtChamadoAbertura,DtChamadoUltimaAcao,IdChamadoCriticidade,IdChamadoStatus,DescricaoChamado")] ChamadoCreateInput model)
         {
             if (HttpContext?.Session.GetString("UserId") == null)
             {
@@ -121,7 +86,46 @@ namespace WebProject.Controllers
                 return View(model);
             }
         }
-        
+
+        public async Task<IActionResult> Edit(long id)
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            var categoria = await _service.GetAsync(id);
+            if (categoria?.Data == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoria.Data);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(long id, [Bind("Id,Descricao,ImagemUrl")] ChamadoUpdateInput model)
+        {
+            if (HttpContext?.Session.GetString("UserId") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _service.Put(model);
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(model);
+        }
         public async Task<IActionResult> Delete(long id)
         {
             if (HttpContext?.Session.GetString("UserId") == null)
@@ -129,15 +133,14 @@ namespace WebProject.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var subcategoria = await _service.GetAsync(id);
-            if (subcategoria?.Data == null)
+            var categoria = await _service.GetAsync(id);
+            if (categoria?.Data == null)
             {
                 return NotFound();
             }
 
-            return View(subcategoria.Data);
+            return View(categoria.Data);
         }
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)

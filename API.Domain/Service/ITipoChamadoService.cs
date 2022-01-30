@@ -13,6 +13,7 @@ namespace API.Domain.Service
     {
         Task<bool> ExistAsync(long idTipoChamado);
         Task<ResponseBase<IEnumerable<TipoChamadoDto>>> GetListAsync();
+        Task<ResponseBase<TipoChamadoDto>> GetAsync(long id);
         Task<ResponseBase<TipoChamadoDto>> Post(TipoChamadoCreateInput model);
     }
 }

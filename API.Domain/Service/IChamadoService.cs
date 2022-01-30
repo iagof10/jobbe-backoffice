@@ -14,5 +14,8 @@ namespace API.Domain.Service
         Task<bool> ExistAsync(long idChamado);
         Task<ResponseBase<IEnumerable<ChamadoDto>>> GetListAsync();
         Task<ResponseBase<ChamadoDto>> Post(ChamadoCreateInput model);
+        Task<ResponseBase<ChamadoDto>> Put(ChamadoUpdateInput model);
+        Task<ResponseBase<ChamadoDto>> GetAsync(long id);
+        Task<ResponseBase<bool>> Delete(long id);
     }
 }

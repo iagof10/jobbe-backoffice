@@ -1,0 +1,43 @@
+﻿@model API.Domain.DTOs.SubCategoria.SubCategoriaDto
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div style="width:100%">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Deletar Sub Categoria</h4>
+                        <p class="card-category">Confirma a exclusão dessa sub categoria?</p>
+                    </div>
+                    <div class="card-body">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Nome
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Descricao)
+                            </dd>
+                            <dt>
+                                Código
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.ImagemUrl)
+                            </dd>
+                        </dl>
+
+                        <form asp-action="Delete">
+                            <a asp-action="Index" class="btn btn-default">Voltar</a>
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Delete" class="btn btn-warning" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var elementClicked = document.getElementById("MenuCategoria");
+    elementClicked.classList.add("active");
+</script>

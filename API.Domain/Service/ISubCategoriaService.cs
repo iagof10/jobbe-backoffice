@@ -17,5 +17,6 @@ namespace API.Domain.Service
         Task<ResponseBase<SubCategoriaDto>> GetAsync(long id);
         Task<ResponseBase<SubCategoriaDto>> Put(SubCategoriaUpdateInput model);
         Task<ResponseBase<SubCategoriaDto>> Post(SubCategoriaCreateInput model);
+        Task<ResponseBase<bool>> Delete(long id);
     }
 }
