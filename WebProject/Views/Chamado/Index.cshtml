@@ -24,11 +24,14 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>
+                                     <th>
                                         Nº.Chamado
                                     </th>
                                     <th>
-                                        Descrição
+                                        Tipo Chamado
+                                    </th>
+                                    <th>
+                                        Usuário
                                     </th>
                                     <th>
                                         Data Abertura
@@ -55,7 +58,10 @@
                                             @Html.DisplayFor(modelItem => item.Id)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.DescricaoChamado)
+                                            @Html.DisplayFor(modelItem => item.TipoChamado.Descricao)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UsuarioChamado.Nome)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.DtChamadoAbertura)
@@ -64,7 +70,7 @@
                                             @Html.DisplayFor(modelItem => item.DtChamadoUltimaAcao)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.IdChamadoCriticidade)
+                                            @Html.DisplayFor(modelItem => item.ChamadoCriticidade.Descricao)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.ChamadoStatus.Descricao)

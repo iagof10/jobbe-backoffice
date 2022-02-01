@@ -1,6 +1,7 @@
 ﻿using API.Domain.DTOs;
 using API.Domain.DTOs.Chamado;
 using API.Domain.DTOs.ChamadoStatus;
+using API.Domain.DTOs.ChamadoCriticidade;
 using API.Domain.Entities;
 using API.Domain.Repository;
 using API.Domain.Service;
@@ -10,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using API.Domain.DTOs.TipoChamado;
+using API.Domain.DTOs.Usuario;
 
 namespace API.Service.Service
 {
@@ -18,13 +21,20 @@ namespace API.Service.Service
         private IBaseRepository<Chamado> _baseRepository;
         private IChamadoRepository _chamadoRepository;
         private IChamadoStatusRepository _chamadoStatusRepository;
+        private IChamadoCriticidadeRepository _chamadoCriticidadeRepository;
+        private ITipoChamadoRepository _tipoChamadoRepository;
+        private IUsuarioRepository _usuarioRepository;
         private readonly IMapper _mapper;
 
-        public ChamadoService(IBaseRepository<Chamado> baseRepository, IChamadoRepository chamadoRepository, IChamadoStatusRepository chamadoStatusRepository, IMapper mapper)
+        public ChamadoService(IBaseRepository<Chamado> baseRepository, IChamadoRepository chamadoRepository, IChamadoStatusRepository chamadoStatusRepository, IChamadoCriticidadeRepository chamadoCriticidadeRepository, ITipoChamadoRepository tipoChamadoRepository, IUsuarioRepository usuarioRepository,IMapper mapper)
         {
             _baseRepository = baseRepository;
             _chamadoRepository = chamadoRepository;
             _chamadoStatusRepository = chamadoStatusRepository;
+            _chamadoCriticidadeRepository = chamadoCriticidadeRepository;
+            _tipoChamadoRepository = tipoChamadoRepository;
+            _usuarioRepository = usuarioRepository;
+
             _mapper = mapper;
         }
 
@@ -44,17 +54,36 @@ namespace API.Service.Service
                 if (chamados.Sucess)
                 {
                     result.Data = _mapper.Map<IEnumerable<ChamadoDto>>(chamados.Data);
-                }
-                if (chamados.Sucess)
-                {
+
                     var chamadoStatus = await _chamadoStatusRepository.SelectListAsync();
                     var chamadoStatusDto = _mapper.Map<IEnumerable<ChamadoStatusDto>>(chamadoStatus.Data);
+                    
+                    var chamadoCriticidade = await _chamadoCriticidadeRepository.SelectListAsync();
+                    var chamadoCriticidadeDto = _mapper.Map<IEnumerable<ChamadoCriticidadeDto>>(chamadoCriticidade.Data);
+
+                    var tipoChamado = await _tipoChamadoRepository.SelectListAsync();
+                    var tipoChamadoDto = _mapper.Map<IEnumerable<TipoChamadoDto>>(tipoChamado.Data);
+
+                    var usuario = await _usuarioRepository.SelectListAsync();
+                    var usuarioDto = _mapper.Map<IEnumerable<UsuarioDto>>(usuario.Data);
 
                     result.Data = _mapper.Map<IEnumerable<ChamadoDto>>(chamados.Data);
 
                     foreach (var item in result.Data)
                     {
                         item.ChamadoStatus = chamadoStatusDto.Where(x => x.Id == item.IdChamadoStatus).FirstOrDefault();
+                    }
+                    foreach (var item in result.Data)
+                    {
+                        item.ChamadoCriticidade = chamadoCriticidadeDto.Where(x => x.Id == item.IdChamadoCriticidade).FirstOrDefault();
+                    }
+                    foreach (var item in result.Data)
+                    {
+                        item.TipoChamado = tipoChamadoDto.Where(x => x.Id == item.IdTipoChamado).FirstOrDefault();
+                    }
+                    foreach (var item in result.Data)
+                    {
+                        item.UsuarioChamado = usuarioDto.Where(x => x.Id == item.IdUsuario).FirstOrDefault();
                     }
                 }
                 else
