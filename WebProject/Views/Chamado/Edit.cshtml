@@ -1,0 +1,79 @@
+﻿@model API.Domain.DTOs.Chamado.ChamadoDto
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div style="width:100%">
+                <div class="card">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Editar Chamado</h4>
+                        <p class="card-category">Altere os dados do chamado</p>
+                    </div>
+                    <div class="card-body">
+                        <form asp-action="Edit">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class="control-label">Tipo Chamado</label>
+                                <select asp-for="IdTipoChamado" class="form-control">
+                                    @foreach (var item in ViewBag.TipoChamados)
+                                    {
+                                        <option value="@item.Id" class="form-control" style="background-color: #2f3954">@item.Descricao</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="IdTipoChamado" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Data Abertura</label>
+                                <input asp-for="DtChamadoAbertura" class="form-control" />
+                                <span asp-validation-for="DtChamadoAbertura" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Data Modificação</label>
+                                <input asp-for="DtChamadoUltimaAcao" class="form-control" />
+                                <span asp-validation-for="DtChamadoUltimaAcao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Criticidade</label>
+                                <select asp-for="IdChamadoCriticidade" class="form-control">
+                                    @foreach (var item in ViewBag.ChamadoCriticidades)
+                                    {
+                                        <option value="@item.Id" class="form-control" style="background-color: #2f3954">@item.Descricao</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="IdChamadoCriticidade" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Status do Chamado</label>
+                                <select asp-for="IdChamadoStatus" class="form-control">
+                                    @foreach (var item in ViewBag.ChamadoStatus)
+                                    {
+                                        <option value="@item.Id" class="form-control" style="background-color: #2f3954">@item.Descricao</option>
+                                    }
+                                </select>
+                                <span asp-validation-for="IdChamadoStatus" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Descrição</label>
+                                <input asp-for="DescricaoChamado" class="form-control" />
+                                <span asp-validation-for="DescricaoChamado" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input asp-action="Index" type="submit" value="Voltar" class="btn btn-default" />
+                                <input type="submit" value="Criar" class="btn btn-warning" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var elementClicked = document.getElementById("MenuCategoria");
+    elementClicked.classList.add("active");
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

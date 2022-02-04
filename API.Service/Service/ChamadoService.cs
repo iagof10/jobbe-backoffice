@@ -67,8 +67,6 @@ namespace API.Service.Service
                     var usuario = await _usuarioRepository.SelectListAsync();
                     var usuarioDto = _mapper.Map<IEnumerable<UsuarioDto>>(usuario.Data);
 
-                    result.Data = _mapper.Map<IEnumerable<ChamadoDto>>(chamados.Data);
-
                     foreach (var item in result.Data)
                     {
                         item.ChamadoStatus = chamadoStatusDto.Where(x => x.Id == item.IdChamadoStatus).FirstOrDefault();
@@ -85,6 +83,7 @@ namespace API.Service.Service
                     {
                         item.UsuarioChamado = usuarioDto.Where(x => x.Id == item.IdUsuario).FirstOrDefault();
                     }
+                  
                 }
                 else
                 {
@@ -110,17 +109,38 @@ namespace API.Service.Service
 
             try
             {
-                var categoria = await _baseRepository.SelectAsync(id);
+                var chamado = await _baseRepository.SelectAsync(id);
 
-                if (categoria.Sucess)
-                {
-                    result.Data = _mapper.Map<ChamadoDto>(categoria.Data);
+                if (chamado.Sucess)
+                { 
+                    result.Data = _mapper.Map<ChamadoDto>(chamado.Data);
+
+                    var chamadoStatus = await _chamadoStatusRepository.SelectListAsync();
+                    var chamadoStatusDto = _mapper.Map<IEnumerable<ChamadoStatusDto>>(chamadoStatus.Data);
+
+                    var chamadoCriticidade = await _chamadoCriticidadeRepository.SelectListAsync();
+                    var chamadoCriticidadeDto = _mapper.Map<IEnumerable<ChamadoCriticidadeDto>>(chamadoCriticidade.Data);
+
+                    var tipoChamado = await _tipoChamadoRepository.SelectListAsync();
+                    var tipoChamadoDto = _mapper.Map<IEnumerable<TipoChamadoDto>>(tipoChamado.Data);
+
+                    var usuario = await _usuarioRepository.SelectListAsync();
+                    var usuarioDto = _mapper.Map<IEnumerable<UsuarioDto>>(usuario.Data);
+
+                    result.Data.ChamadoStatus = chamadoStatusDto.Where(x => x.Id == result.Data.IdChamadoStatus).FirstOrDefault();
+
+                    result.Data.ChamadoCriticidade = chamadoCriticidadeDto.Where(x => x.Id == result.Data.IdChamadoCriticidade).FirstOrDefault();
+
+                    result.Data.TipoChamado = tipoChamadoDto.Where(x => x.Id == result.Data.IdTipoChamado).FirstOrDefault();
+
+                    result.Data.UsuarioChamado = usuarioDto.Where(x => x.Id == result.Data.IdUsuario).FirstOrDefault();
+
                 }
                 else
                 {
                     result.Sucess = false;
                     result.Data = null;
-                    result.ErrorMessage = categoria.ErrorMessage;
+                    result.ErrorMessage = chamado.ErrorMessage;
                 }
 
             }
@@ -227,5 +247,6 @@ namespace API.Service.Service
 
             return result;
         }
+
     }
 }
