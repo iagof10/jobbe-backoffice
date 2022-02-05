@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace API.Domain.Repository
 {
-    public interface ICategoriaRepository
+    public interface IContatoPrestadorRepository
     {
-        Task<bool> ExistAsync(long idCategoria);
-        Task<ResponseBase<IEnumerable<Categoria>>> SelectListAsync();
+        Task<bool> ExistAsync(long idContatoPrestador);
+        Task<ResponseBase<IEnumerable<ContatoPrestador>>> SelectListAsync();
     }
 }

@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using API.Domain.DTOs.ChamadoCriticidade;
+using API.Domain.DTOs.ChamadoStatus;
+using API.Domain.DTOs.TipoChamado;
+using API.Domain.DTOs.Usuario;
 using API.Domain.Enum;
 
 namespace API.Domain.Entities

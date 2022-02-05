@@ -94,13 +94,22 @@ namespace WebProject.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var categoria = await _service.GetAsync(id);
-            if (categoria?.Data == null)
+            var chamado = await _service.GetAsync(id);
+            if (chamado?.Data == null)
             {
                 return NotFound();
             }
 
-            return View(categoria.Data);
+            var tipoChamadoService = await _serviceTipoChamado.GetListAsync();
+            ViewBag.TipoChamados = tipoChamadoService.Data;
+
+            var chamadoCriticidadeService = await _servicoChamadoCriticidade.GetListAsync();
+            ViewBag.ChamadoCriticidades = chamadoCriticidadeService.Data;
+
+            var servicoStatus = await _servicoStatus.GetListAsync();
+            ViewBag.ChamadoStatus = servicoStatus.Data;
+
+            return View(chamado.Data);
         }
 
         [HttpPost]
@@ -141,6 +150,7 @@ namespace WebProject.Controllers
 
             return View(categoria.Data);
         }
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
@@ -153,5 +163,6 @@ namespace WebProject.Controllers
             await _service.Delete(id);
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
