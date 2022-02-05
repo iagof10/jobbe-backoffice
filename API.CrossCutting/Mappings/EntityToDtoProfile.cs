@@ -39,7 +39,10 @@ namespace API.CrossCutting.Mappings
             CreateMap<UsuarioUpdateInput, Usuario>().ReverseMap();
 
             CreateMap<TelefoneUsuarioDto, TelefoneUsuario>().ReverseMap();
+
             CreateMap<TipoChamadoDto, TipoChamado>().ReverseMap();
+            CreateMap<TipoChamadoCreateInput, TipoChamado>().ReverseMap();
+            CreateMap<TipoChamadoUpdateInput, TipoChamado>().ReverseMap();
 
             CreateMap<ChamadoDto, Chamado>().ReverseMap();
             CreateMap<ChamadoCreateInput, Chamado>().ReverseMap();

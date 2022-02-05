@@ -15,5 +15,7 @@ namespace API.Domain.Service
         Task<ResponseBase<IEnumerable<TipoChamadoDto>>> GetListAsync();
         Task<ResponseBase<TipoChamadoDto>> GetAsync(long id);
         Task<ResponseBase<TipoChamadoDto>> Post(TipoChamadoCreateInput model);
+        Task<ResponseBase<TipoChamadoDto>> Put(TipoChamadoUpdateInput model);
+        Task<ResponseBase<bool>> Delete(long id);
     }
 }
