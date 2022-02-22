@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace API.Domain.DTOs.Categoria
+namespace API.Domain.DTOs.TipoChamado
 {
     public class TipoChamadoUpdateInput
     {

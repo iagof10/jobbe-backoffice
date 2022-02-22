@@ -60,6 +60,36 @@ namespace API.Service.Service
             return result;
         }
 
+        public async Task<ResponseBase<TipoChamadoDto>> GetAsync(long id)
+        {
+            ResponseBase<TipoChamadoDto> result = new ResponseBase<TipoChamadoDto>();
+
+            try
+            {
+                var tipoChamado = await _baseRepository.SelectAsync(id);
+
+                if (tipoChamado.Sucess)
+                {
+                    result.Data = _mapper.Map<TipoChamadoDto>(tipoChamado.Data);
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = null;
+                    result.ErrorMessage = tipoChamado.ErrorMessage;
+                }
+
+            }
+            catch (Exception e)
+            {
+                result.Sucess = false;
+                result.Data = null;
+                result.ErrorMessage = e.Message;
+            }
+
+            return result;
+        }
+
         public async Task<ResponseBase<TipoChamadoDto>> Post(TipoChamadoCreateInput model)
         {
             ResponseBase<TipoChamadoDto> result = new ResponseBase<TipoChamadoDto>();
@@ -92,34 +122,67 @@ namespace API.Service.Service
             return result;
         }
 
-        public async Task<ResponseBase<TipoChamadoDto>> GetAsync(long id)
+        public async Task<ResponseBase<TipoChamadoDto>> Put(TipoChamadoUpdateInput model)
         {
             ResponseBase<TipoChamadoDto> result = new ResponseBase<TipoChamadoDto>();
 
             try
             {
-                var categoria = await _baseRepository.SelectAsync(id);
+                var entity = _mapper.Map<TipoChamado>(model);
 
-                if (categoria.Sucess)
+                var resultUpdate = await _baseRepository.UpdateAsync(entity);
+
+                if (resultUpdate.Sucess)
                 {
-                    result.Data = _mapper.Map<TipoChamadoDto>(categoria.Data);
+                    result.Data = _mapper.Map<TipoChamadoDto>(resultUpdate.Data);
                 }
                 else
                 {
                     result.Sucess = false;
                     result.Data = null;
-                    result.ErrorMessage = categoria.ErrorMessage;
+                    result.ErrorMessage = resultUpdate.ErrorMessage;
                 }
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 result.Sucess = false;
                 result.Data = null;
-                result.ErrorMessage = e.Message;
+                result.ErrorMessage = ex.Message;
             }
 
             return result;
         }
+
+        public async Task<ResponseBase<bool>> Delete(long id)
+        {
+            ResponseBase<bool> result = new ResponseBase<bool>();
+
+            try
+            {
+                var resultDelete = await _baseRepository.DeleteAsync(id);
+
+                if (resultDelete)
+                {
+                    result.Data = resultDelete;
+                }
+                else
+                {
+                    result.Sucess = false;
+                    result.Data = false;
+                    result.ErrorMessage = "Erro ao deletar.";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                result.Sucess = false;
+                result.Data = false;
+                result.ErrorMessage = ex.Message;
+            }
+
+            return result;
+        }
+
     }
 }
