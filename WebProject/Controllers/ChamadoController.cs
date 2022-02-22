@@ -114,7 +114,7 @@ namespace WebProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Descricao,ImagemUrl")] ChamadoUpdateInput model)
+        public async Task<IActionResult> Edit(long id, [Bind("IdTipoChamado,DtChamadoAbertura,DtChamadoUltimaAcao,IdChamadoCriticidade,IdChamadoStatus,DescricaoChamado,Id")] ChamadoUpdateInput model)
         {
             if (HttpContext?.Session.GetString("UserId") == null)
             {
@@ -125,6 +125,7 @@ namespace WebProject.Controllers
             {
                 try
                 {
+                    model.IdUsuario = GetUserId();
                     await _service.Put(model);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -135,6 +136,7 @@ namespace WebProject.Controllers
             }
             return View(model);
         }
+        
         public async Task<IActionResult> Delete(long id)
         {
             if (HttpContext?.Session.GetString("UserId") == null)
@@ -142,13 +144,22 @@ namespace WebProject.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var categoria = await _service.GetAsync(id);
-            if (categoria?.Data == null)
+            var chamado = await _service.GetAsync(id);
+            if (chamado?.Data == null)
             {
                 return NotFound();
             }
 
-            return View(categoria.Data);
+            var tipoChamadoService = await _serviceTipoChamado.GetListAsync();
+            ViewBag.TipoChamados = tipoChamadoService.Data;
+
+            var chamadoCriticidadeService = await _servicoChamadoCriticidade.GetListAsync();
+            ViewBag.ChamadoCriticidades = chamadoCriticidadeService.Data;
+
+            var servicoStatus = await _servicoStatus.GetListAsync();
+            ViewBag.ChamadoStatus = servicoStatus.Data;
+
+            return View(chamado.Data);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -164,5 +175,9 @@ namespace WebProject.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public int GetUserId()
+        {
+            return Convert.ToInt32 (HttpContext.Session.GetString("UserId"));
+        }
     }
 }

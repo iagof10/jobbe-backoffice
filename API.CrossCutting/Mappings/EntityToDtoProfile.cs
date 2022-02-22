@@ -43,6 +43,7 @@ namespace API.CrossCutting.Mappings
 
             CreateMap<ChamadoDto, Chamado>().ReverseMap();
             CreateMap<ChamadoCreateInput, Chamado>().ReverseMap();
+            CreateMap<ChamadoUpdateInput, Chamado>().ReverseMap();
 
             CreateMap<ChamadoCriticidadeDto, ChamadoCriticidade>().ReverseMap();
 

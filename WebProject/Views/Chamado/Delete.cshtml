@@ -6,11 +6,11 @@
             <div style="width:100%">
                 <div class="card">
                     <div class="card-header card-header-warning">
-                        <h4 class="card-title">Editar Chamado</h4>
-                        <p class="card-category">Altere os dados do chamado</p>
+                        <h4 class="card-title">Deletar Chamado</h4>
+                        <p class="card-category">Confirma a exclusão desse chamado?</p>
                     </div>
                     <div class="card-body">
-                        <form asp-action="Edit">
+                        <form asp-action="Delete">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <input type="hidden" asp-for="Id" />
                             <div class="form-group">
@@ -60,7 +60,7 @@
                             </div>
                             <div class="form-group">
                                 <input asp-action="Index" type="submit" value="Voltar" class="btn btn-default" />
-                                <input type="submit" value="Salvar" class="btn btn-warning" />
+                                <input type="submit" value="Delete" class="btn btn-warning" />
                             </div>
                         </form>
                     </div>
